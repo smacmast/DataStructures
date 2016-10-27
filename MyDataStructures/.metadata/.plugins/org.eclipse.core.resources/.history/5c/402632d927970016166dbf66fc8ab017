@@ -1,0 +1,15 @@
+
+public class MyNode<T> {
+	T data;
+	MyNode<T> next;
+	
+	public MyNode() {
+		if(this.data instanceof Integer){
+			this.data = 0;
+		}else{
+			this.data = null;
+		}
+		this.next = null;
+	}
+
+}

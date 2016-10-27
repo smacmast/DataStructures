@@ -1,0 +1,94 @@
+import static org.junit.Assert.*;
+
+import java.util.Comparator;
+import java.util.NoSuchElementException;
+
+import org.junit.Test;
+
+
+public class TestMyMinHeap {
+
+	@Test
+	public void testInsert() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>(new IntegerComparator());
+		m.insert(5);
+		assertEquals((Integer) 5, m.viewMin());
+		m.insert(7);
+		assertEquals((Integer) 5, m.viewMin());
+		m.insert(2);
+		assertEquals((Integer) 2, m.viewMin());
+	}
+	
+	@Test
+	public void testExtractMin() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>(new IntegerComparator());
+		m.insert(5);
+		assertEquals((Integer) 5, m.extractMin());
+		m.insert(7);
+		m.insert(2);
+		assertEquals((Integer) 2, m.extractMin());
+		assertEquals((Integer) 7, m.extractMin());
+		assertTrue(m.isEmpty());
+	}
+	
+	@Test
+	public void testClearAndEmpty() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>(new IntegerComparator());
+		assertTrue(m.isEmpty());
+		m.insert(5);
+		m.insert(7);
+		m.insert(2);
+		assertFalse(m.isEmpty());
+		m.clear();
+		assertTrue(m.isEmpty());
+	}
+	
+	@Test
+	public void testDelete() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>(new IntegerComparator());
+		m.insert(5);
+		assertEquals((Integer) 5, m.extractMin());
+		m.insert(7);
+		m.insert(2);
+		assertFalse(m.isEmpty());
+		m.clear();
+		assertTrue(m.isEmpty());
+	}
+
+	@Test (expected = NoSuchElementException.class) 
+	public void testExtractException1(){
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>(new IntegerComparator());
+		m.extractMin();
+	}
+	
+	@Test (expected = NoSuchElementException.class) 
+	public void testDeleteMinException(){
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>(new IntegerComparator());
+		m.deleteMin();
+	}
+	
+	@Test (expected = NoSuchElementException.class) 
+	public void testDeleteException1(){
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>(new IntegerComparator());
+		m.insert(5);
+		m.insert(null);
+		m.delete(1);
+	}
+	
+	@Test (expected = IndexOutOfBoundsException.class) 
+	public void testDeleteException2(){
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>(new IntegerComparator());
+		m.delete(-1);
+	}
+	
+	private class IntegerComparator implements Comparator<Integer> {
+
+	    public int compare(Integer a, Integer b) {
+	        return a.intValue() - b.intValue();
+	    }
+
+	    public boolean equals(Object obj) {
+	        return this.equals(obj);
+	    }
+	}
+}

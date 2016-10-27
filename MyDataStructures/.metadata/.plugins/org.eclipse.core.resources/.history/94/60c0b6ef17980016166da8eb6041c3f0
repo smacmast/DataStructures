@@ -1,0 +1,13 @@
+/**
+ * @author: Spencer MacMaster
+ * @description: contains a data value and a link to left and right TreeNode to be used in a binary tree data structure
+ */
+public class TreeNode<T> {
+	T data;
+	TreeNode<T> left, right;
+	
+	TreeNode(T data){
+		this.data = data;
+		this.left = null; this.right = null;
+	}
+}

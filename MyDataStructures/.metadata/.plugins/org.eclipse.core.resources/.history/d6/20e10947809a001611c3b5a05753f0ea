@@ -1,0 +1,292 @@
+import static org.junit.Assert.*;
+
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+
+import org.junit.Test;
+
+
+public class MyLinkedListTest {
+
+	@Test
+	public void testAddGet() {
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		m.add(1); assertEquals((Integer) 1, m.getBack()); //add and check end value
+		m.add(2); assertEquals((Integer) 2, m.getBack());
+		m.add(3); assertEquals((Integer) 3, m.getBack());
+		m.add(4); assertEquals((Integer) 4, m.getBack());
+		m.add(5); assertEquals((Integer) 5, m.getBack());
+		m.add(6); assertEquals((Integer) 6, m.getBack());
+		m.add(7); assertEquals((Integer) 7, m.getBack());
+		
+		//check all values added
+		assertEquals((Integer) 1, m.getElement(0));
+		assertEquals((Integer) 2, m.getElement(1));
+		assertEquals((Integer) 3, m.getElement(2));
+		assertEquals((Integer) 4, m.getElement(3));
+		assertEquals((Integer) 5, m.getElement(4));
+		assertEquals((Integer) 6, m.getElement(5));
+		assertEquals((Integer) 7, m.getElement(6));
+	}
+	
+	@Test
+	public void testInsertGet2(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		m.insert(0,0); assertEquals((Integer) 0, m.getElement(0)); //add and check insert index value
+		m.insert(1,3); assertEquals((Integer) 3, m.getElement(1));
+		m.insert(1,1); assertEquals((Integer) 1, m.getElement(1));
+		m.insert(2,2); assertEquals((Integer) 2, m.getElement(2));
+		m.insert(4,5); assertEquals((Integer) 5, m.getElement(4));
+		m.insert(4,4); assertEquals((Integer) 4, m.getElement(4));
+		m.insert(6,6); assertEquals((Integer) 6, m.getElement(6));
+		
+		//check all values added
+		assertEquals((Integer) 0, m.getElement(0));
+		assertEquals((Integer) 1, m.getElement(1));
+		assertEquals((Integer) 2, m.getElement(2));
+		assertEquals((Integer) 3, m.getElement(3));
+		assertEquals((Integer) 4, m.getElement(4));
+		assertEquals((Integer) 5, m.getElement(5));
+		assertEquals((Integer) 6, m.getElement(6));
+	}
+	
+	@Test
+	public void testAddFirstGet(){
+		MyLinkedList<String> m = new MyLinkedList<String>();
+		m.addFirst("TestString0");assertEquals("TestString0", m.getFront()); //add and check front values
+		m.addFirst("TestString1");assertEquals("TestString1", m.getFront());
+		m.addFirst("TestString2");assertEquals("TestString2", m.getFront());
+		m.addFirst("TestString3");assertEquals("TestString3", m.getFront());
+		m.addFirst("TestString4");assertEquals("TestString4", m.getFront());
+		m.addFirst("TestString5");assertEquals("TestString5", m.getFront());
+		
+		//check all values added
+		assertEquals("TestString5", m.getElement(0));
+		assertEquals("TestString4", m.getElement(1));
+		assertEquals("TestString3", m.getElement(2));
+		assertEquals("TestString2", m.getElement(3));
+		assertEquals("TestString1", m.getElement(4));
+		assertEquals("TestString0", m.getElement(5));
+	}
+	
+	@Test
+	public void testRemoveGet(){
+		MyLinkedList<Object> m = new MyLinkedList<Object>();
+		
+		Object a = new Object(); Object b = new Object();
+		Object c = new Object(); Object d = new Object();
+		Object e = new Object(); Object f = new Object();
+		
+		m.add(a); m.add(b); m.add(c);
+		m.add(d); m.add(e); m.add(f);
+		
+		//make sure that it finds the element
+		assertEquals(m.getElement(0), a);
+		assertEquals(m.getElement(1), b);
+		assertEquals(m.getElement(2), c);
+		assertEquals(m.getElement(3), d);
+		assertEquals(m.getElement(4), e);
+		assertEquals(m.getElement(5), f);
+		
+		m.remove(1); m.remove(3);
+				
+		//make sure that element was removed
+		assertEquals(m.getElement(0), a);
+		assertNotEquals(m.getElement(1), b);
+		assertEquals(m.getElement(1), c);
+		assertEquals(m.getElement(2), d);
+		assertNotEquals(m.getElement(3), e);
+		assertEquals(m.getElement(3), f);
+	}
+	
+	@Test
+	public void testRemoveFrontGet(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+				
+		m.add(1); m.add(2); m.add(3);
+		m.add(4); m.add(5); m.add(6);
+		
+		assertEquals(m.getFront(), (Integer) 1);
+		m.removeFront(); 
+		assertEquals(m.getFront(), (Integer) 2);
+		m.removeFront();
+		assertEquals(m.getFront(), (Integer) 3);
+				
+		assertEquals(m.getElement(0), (Integer) 3);
+		assertEquals(m.getElement(1), (Integer) 4);
+		assertEquals(m.getElement(2), (Integer) 5);
+		assertEquals(m.getElement(3), (Integer) 6);
+	}
+	
+	
+	@Test
+	public void testRemoveBack(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		
+		m.add(1); m.add(2); m.add(3);
+		m.add(4); m.add(5); m.add(6);
+		
+		assertEquals(m.getBack(), (Integer) 6);
+		m.removeBack(); 
+		assertEquals(m.getBack(), (Integer) 5);
+		m.removeBack();
+		assertEquals(m.getBack(), (Integer) 4);
+				
+		assertEquals(m.getElement(0), (Integer) 1);
+		assertEquals(m.getElement(1), (Integer) 2);
+		assertEquals(m.getElement(2), (Integer) 3);
+		assertEquals(m.getElement(3), (Integer) 4);
+	}
+	
+	
+	@Test
+	public void testRemoveFindElement1(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		
+		m.add(1); m.add(2); m.add(3); m.add(4);
+		m.add(5); m.add(6); m.add(7); m.add(8);
+		
+		//make sure that it finds the element
+		assertEquals(m.findElement(1), 0);
+		assertEquals(m.findElement(2), 1);
+		assertEquals(m.findElement(3), 2);
+		assertEquals(m.findElement(4), 3);
+		assertEquals(m.findElement(5), 4);
+		assertEquals(m.findElement(6), 5);
+		assertEquals(m.findElement(7), 6);
+		assertEquals(m.findElement(8), 7);
+		
+		m.removeElement(5); m.removeElement(3);
+				
+		//make sure that element was removed
+		assertEquals(m.findElement(1), 0);
+		assertEquals(m.findElement(2), 1);
+		assertEquals(m.findElement(3), -1);
+		assertEquals(m.findElement(4), 2);
+		assertEquals(m.findElement(5), -1);
+		assertEquals(m.findElement(6), 3);
+		assertEquals(m.findElement(7), 4);
+		assertEquals(m.findElement(8), 5);
+	}
+	
+
+	@Test
+	public void testRemoveFindElement2(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		m.add(1); m.add(2); m.add(3); m.add(4);
+		m.add(5); m.add(2); m.add(6); m.add(8);
+		
+		//make sure that it finds the element
+		assertEquals(m.findElement(1), 0);
+		assertEquals(m.findElement(2), 1);
+		assertEquals(m.findElement(3), 2);
+		assertEquals(m.findElement(4), 3);
+		assertEquals(m.findElement(5), 4);
+		assertEquals(m.findElement(8), 7);
+		
+		m.removeElement(2); m.removeElement(6);
+				
+		//make sure that element was removed
+		assertEquals(m.findElement(1), 0);
+		assertEquals(m.findElement(2), 4);
+		assertEquals(m.findElement(3), 1);
+		assertEquals(m.findElement(4), 2);
+		assertEquals(m.findElement(5), 3);
+		assertEquals(m.findElement(6), -1);
+		assertEquals(m.findElement(8), 5);
+	}
+	
+	@Test
+	public void testClearEmpty(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		m.add(1); m.add(2); m.add(3);
+		assertFalse(m.isEmpty());
+		m.clear();
+		assertTrue(m.isEmpty());
+		m.add(1); m.add(2); m.add(3);
+		assertFalse(m.isEmpty());
+		m.clear();
+		assertTrue(m.isEmpty());
+	}
+		
+	@Test
+	public void testSet(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		m.add(1); m.add(2); m.add(3);
+		assertEquals((Integer) 1 , m.getElement(0));
+		assertEquals((Integer) 2 , m.getElement(1));
+		assertEquals((Integer) 3 , m.getElement(2));
+
+		m.set(0, 12); m.set(1, 15);m.set(2, 51);
+		assertEquals((Integer) 12, m.getElement(0));
+		assertEquals((Integer) 15, m.getElement(1));
+		assertEquals((Integer) 51, m.getElement(2));
+	}
+	
+	@Test
+	public void testListIterator(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		m.add(1); m.add(2); m.add(3);
+		
+		
+	}
+	
+
+	
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void testInsertException(){
+		/*TODO*/
+	}
+
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void testGetElementException(){
+		/*TODO*/
+	}
+
+	@Test (expected = NoSuchElementException.class)
+	public void testGetFrontException(){
+		/*TODO*/
+	}
+	
+	@Test (expected = NoSuchElementException.class)
+	public void testGetBackException(){
+		/*TODO*/
+	}
+	
+	@Test (expected = NoSuchElementException.class)
+	public void testRemoveElementException(){
+		/*TODO*/
+	}
+
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void testRemoveException(){
+		/*TODO*/
+	}
+
+	@Test (expected = NoSuchElementException.class)
+	public void testRemoveFrontException(){
+		/*TODO*/
+	}
+	
+	@Test (expected = NoSuchElementException.class)
+	public void testRemoveBackException(){
+		/*TODO*/
+	}
+	
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void testSetException(){
+		MyLinkedList<Integer> m = new MyLinkedList<Integer>();
+		m.set(0, 12); //list is empty so should error
+	}
+	
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void testListIteratorException1(){
+		/*TODO*/
+	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void testListIteratorException2(){
+		/*TODO*/
+	}
+
+}

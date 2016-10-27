@@ -1,0 +1,60 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class MyStackTest {
+
+	/**
+	 * 
+	 */
+	@Test
+	public void testPushPop1() {
+		MyStack<Integer> m = new MyStack<Integer>();
+		m.push(0); m.push(1);
+		assertEquals((Integer) 1, m.pop()); //1 should pop before 0
+		assertEquals((Integer) 0, m.pop());
+		m.push(2); m.push(3);
+		m.push(4); m.push(5);
+		assertEquals((Integer) 5, m.pop());
+		assertEquals((Integer) 4, m.pop());
+		assertEquals((Integer) 3, m.pop());
+		assertEquals((Integer) 2, m.pop());
+	}
+
+	@Test
+	public void testGetSize() {
+		MyStack<Integer> m = new MyStack<Integer>();
+	    assertEquals(0, m.getSize());
+	    m.push(42);
+	    assertEquals(1, m.getSize());
+	    m.push(-3);
+	    assertEquals(2, m.getSize());
+	    m.push(17);
+	    assertEquals(3, m.getSize());
+	    m.push(99);
+	    assertEquals(4, m.getSize());
+	    assertEquals("second attempt", 4, m.getSize());
+	}
+
+	@Test
+	public void test3() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void test4() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void test5() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void test6() {
+		fail("Not yet implemented");
+	}
+
+}

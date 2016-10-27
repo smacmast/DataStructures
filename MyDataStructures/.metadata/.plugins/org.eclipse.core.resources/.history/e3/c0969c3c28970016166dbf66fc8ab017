@@ -1,0 +1,11 @@
+
+public class MyStack<T> {
+	private MyNode<T> head;
+	
+	public MyStack() {
+		this.head = null;
+	}
+	
+	
+
+}

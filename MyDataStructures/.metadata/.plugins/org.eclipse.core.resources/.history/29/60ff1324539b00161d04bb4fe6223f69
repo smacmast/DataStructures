@@ -1,0 +1,286 @@
+import java.util.Comparator;
+import java.util.NoSuchElementException;
+
+
+public class MyBinaryTree<T>{
+	private int size;
+	private TreeNode<T> root;
+	private Comparator<T> compare;
+	
+	/**
+	 * Constructor for the Binary Tree Class
+	 * @param compare The T-Type Comparator
+	 */
+	public MyBinaryTree(Comparator<T> compare) {
+		this.size = 0; this.root = null;
+		this.compare = compare;
+	}
+
+	/**
+	 * Inserts an Element into the tree.
+	 * @param data Element to be inserted into the tree
+	 */
+	public void insert(T data){
+		TreeNode<T> newNode = new TreeNode<T>(data);
+		if(this.root == null){ this.root = newNode; this.size++; } //tree is empty
+		else{
+			TreeNode<T> node = this.root; //parent node
+			if(this.compare.compare(newNode.data, node.data) < 0){ //data < pi.data
+				this.insertLeft(newNode, node, node.left);
+			}else{
+				this.insertRight(newNode, node, node.right);
+			}
+		}
+	}
+	
+	/**
+	 * Inserts an element into the tree.
+	 * @param newNode the new data element node
+	 * @param left 
+	 * @param node current node to compare with
+	 */
+	private void insertLeft(TreeNode<T> newNode, TreeNode<T> pi, TreeNode<T> left) {
+		if(left == null){ pi.left = newNode;  this.size++; } //tree is empty
+		else{
+			if(this.compare.compare(newNode.data, left.data) < 0){ //node.data < right.data
+				this.insertLeft(newNode, left, left.left);
+			}else{
+				this.insertRight(newNode, left, left.right);
+			}
+		}
+	}
+	
+	/**
+	 * Inserts an element into the tree.
+	 * @param newNode the new data element node
+	 * @param node current node to compare with
+	 */
+	private void insertRight(TreeNode<T> newNode, TreeNode<T> pi, TreeNode<T> right) {
+		if(right == null){ pi.right = newNode;  this.size++; } //tree is empty
+		else{
+			if(this.compare.compare(newNode.data, right.data) < 0){ //node.data < right.data
+				this.insertLeft(newNode, right, right.left);
+			}else{
+				this.insertRight(newNode, right, right.right);
+			}
+		}
+	}
+
+	/**
+	 * Searches the tree to see if it contains an element.
+	 * @param data Element to search the tree for
+	 * @return true if element is in the tree else false
+	 */
+	public boolean contains(T data){
+		return this.contains(data, this.root);
+	}
+	
+	/**
+	 * Searches the tree to see if it contains an element.
+	 * @param data Element to search the tree for
+	 * @return true if element is in the tree else false
+	 */
+	private boolean contains(T data, TreeNode<T> node){
+		if(node == null){ return false;} //tree is empty
+		else if(this.compare.compare(data, node.data) == 0){ return true; }
+		else{
+			if(this.compare.compare(data, node.data) < 0){ //node.data < right.data
+				return this.contains(data, node.left);
+			}else{
+				return this.contains(data, node.right);
+			}
+		}	
+	}
+	
+	/**
+	 * Deletes all elements from the tree
+	 */
+	public void clear(){ this.root = null; this.size = 0; }
+	
+	/**
+	 * Gets the number of elements in the list
+	 * @return the number or elements in the list
+	 */
+	public int getSize(){ return this.size; }
+	
+	/**
+	 * Removes a specific element from the tree
+	 * @param data element to remove
+	 * @throws NoSuchElementException
+	 */
+	public void delete(T data) throws NoSuchElementException {
+		this.delete(data, null, this.root);
+	}
+	
+	/**
+	 * Removes a specific element from the tree
+	 * @param data element to remove
+	 * @param pi parent of node
+	 * @param node the current node to check
+	 * @throws NoSuchElementException
+	 */
+	private void delete(T data, TreeNode<T> pi, TreeNode<T> node) throws NoSuchElementException {
+		if(node == null){ throw new NoSuchElementException(); } //data not in tree
+		else if(this.compare.compare(data, node.data) == 0){ this.removeRoot(); }// node to delete is root
+		else{
+			if(this.compare.compare(data, node.data) < 0){ //node.data < right.data
+				this.deleteLeft(data, node, node.left);
+			}else{
+				this.deleteRight(data, node ,node.right);
+			}
+		}	
+	}
+	
+	/**
+	 * Removes a specific element from the tree
+	 * @param data element to remove
+	 * @param pi parent of node
+	 * @param node the current node to check
+	 * @throws NoSuchElementException
+	 */
+	private void deleteLeft(T data, TreeNode<T> pi, TreeNode<T> node) throws NoSuchElementException {
+		if(node == null){ throw new NoSuchElementException(); } //data not in tree
+		else if(this.compare.compare(data, node.data) == 0){ this.removeLeft(pi, node); } // node to delete
+		else{
+			if(this.compare.compare(data, node.data) < 0){ //node.data < right.data
+				this.deleteLeft(data, node, node.left);
+			}else{
+				this.deleteRight(data, node ,node.right);
+			}
+		}	
+	}
+	
+	/**
+	 * Removes a specific element from the tree
+	 * @param data element to remove
+	 * @param pi parent of node
+	 * @param node the current node to check
+	 * @throws NoSuchElementException
+	 */
+	private void deleteRight(T data, TreeNode<T> pi, TreeNode<T> node) throws NoSuchElementException {
+		if(node == null){ throw new NoSuchElementException(); } //data not in tree
+		else if(this.compare.compare(data, node.data) == 0){ this.removeRight(pi, node); }// node to delete
+		else{
+			if(this.compare.compare(data, node.data) < 0){ //node.data < right.data
+				this.deleteLeft(data, node, node.left);
+			}else{
+				this.deleteRight(data, node ,node.right);
+			}
+		}	
+	}
+	
+	/**
+	 * Removes the root node.
+	 * @param pi 
+	 * @param node 
+	 */
+	private void removeRoot() {
+		if(this.root.left == null && this.root.right == null){this.root = null; this.size--;} //has no children
+		else if(this.root.left != null && this.root.right == null){ //has left child
+			this.root = this.root.left; this.size--;
+		}
+		else if(this.root.left != null && this.root.right == null){ //has right child
+			this.root = this.root.right; this.size--;
+		}
+		else { //has both left and right children
+			/*TODO*/
+		}
+	}
+	
+	/**
+	 * Removes a specific node from the tree
+	 * @param pi parent of node
+	 * @param node node to delete
+	 */
+	private void removeLeft(TreeNode<T> pi, TreeNode<T> node) {
+		if(node.left == null && node.right == null){this.root = null; this.size--;} //has no children
+		else if(node.left != null && node.right == null){ //has left child
+			this.root = this.root.left; this.size--;
+		}
+		else if(node.left != null && node.right == null){ //has right child
+			this.root = this.root.right; this.size--;
+		}
+		else { //has both left and right children
+			/*TODO*/
+		}
+	}
+
+	/**
+	 * Removes a specific node from the tree
+	 * @param pi parent of node
+	 * @param node node to delete
+	 */
+	private void removeRight(TreeNode<T> pi, TreeNode<T> node) {
+		/*TODO*/		
+	}
+
+	/**
+	 * Traverses the tree using in order traversal 
+	 * @return string representation of nodes in tree in in order traversal
+	 */
+	public String inOrderRep(){
+		StringBuilder s = new StringBuilder();
+		this.inOrderRep(s, this.root);
+		return s.toString();
+	}
+	
+	/**
+	 * Traverses the tree using in order traversal 
+	 * @return string representation of nodes in tree in in order traversal
+	 * @param s the String Builder containing the string traversal path
+	 * @param node the current node to visit
+	 */
+	private void inOrderRep(StringBuilder s, TreeNode<T> node) {
+		if(node == null){ return; }
+		this.inOrderRep(s, node.left);
+		s.append("" + node.data + " ");
+		this.inOrderRep(s, node.right);
+	}
+	
+	/**
+	 * Traverses the tree using in order traversal 
+	 * @return string representation of nodes in tree in in order traversal
+	 */
+	public String preOrderRep(){
+		StringBuilder s = new StringBuilder();
+		this.preOrderRep(s, this.root);
+		return s.toString();
+	}
+	
+	/**
+	 * Traverses the tree using in order traversal 
+	 * @return string representation of nodes in tree in in order traversal
+	 * @param s the String Builder containing the string traversal path
+	 * @param node the current node to visit
+	 */
+	private void preOrderRep(StringBuilder s, TreeNode<T> node) {
+		if(node == null){ return; }
+		s.append("" + node.data + " ");
+		this.preOrderRep(s, node.left);
+		this.preOrderRep(s, node.right);
+	}
+	
+	/**
+	 * Traverses the tree using in order traversal 
+	 * @return string representation of nodes in tree in in order traversal
+	 */
+	public String postOrderRep(){
+		StringBuilder s = new StringBuilder();
+		this.postOrderRep(s, this.root);
+		return s.toString();
+	}
+	
+	/**
+	 * Traverses the tree using in order traversal 
+	 * @return string representation of nodes in tree in in order traversal
+	 * @param s the String Builder containing the string traversal path
+	 * @param node the current node to visit
+	 */
+	private void postOrderRep(StringBuilder s, TreeNode<T> node) {
+		if(node == null){ return; }
+		this.postOrderRep(s, node.left);
+		this.postOrderRep(s, node.right);
+		s.append("" + node.data + " ");
+	}
+	
+}

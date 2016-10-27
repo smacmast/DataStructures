@@ -1,0 +1,150 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+/**
+ * @author Spencer MacMaster
+ * @description Abstract class of a Heap Data Structure.
+ */
+public abstract class MyHeap<T>{
+	protected T[] heap;
+	protected int size;
+	
+	/**
+	 * Constructor of MyHeap Class
+	 */
+	@SuppressWarnings("unchecked")
+	public MyHeap() { 
+		this.size = 0;
+		this.heap = (T[]) new Object[this.size+1];
+	}
+	
+	/**
+	 *  Removes and returns the top element in the heap
+	 *  @return the top element in the heap
+	 *  @throws NoSuchElementException
+	 */
+	protected T extractTop() throws NoSuchElementException{
+		if(this.isEmpty()){throw new NoSuchElementException();}
+		T data = this.heap[0];
+		this.deleteTop();
+		return data;
+	}
+	
+	/**
+	 * Deletes the top element in the heap
+	 * @throws NoSuchElementException
+	 */
+	protected void deleteTop() throws NoSuchElementException{ 
+		if(this.isEmpty()){throw new NoSuchElementException();}
+		for(int i = 0; i < this.size; ++i){ 
+			this.heap[i] = this.heap[i+1]; //shift all elements to the left by 1
+		}
+		this.size -= 1;
+		this.heapify();//make sure heap properties still hold
+	}
+	
+	/**
+	 *  Views and returns the top element in the heap
+	 *  @return the top element in the heap
+	 *  @throws NoSuchElementException
+	 */
+	public T viewTop() throws NoSuchElementException{ 
+		if(this.isEmpty()){throw new NoSuchElementException();}
+		return this.heap[0];
+	}
+	
+	/**
+	 * Determines if heap is empty
+	 * @return true if heap is empty else false
+	 */
+	public boolean isEmpty(){ return this.size == 0; }
+	
+	/**
+	 * The number of elements in the heap
+	 * @return the size of the heap
+	 */
+	public int getSize(){ return this.size; }
+
+	/**
+	 * Removes all nodes from the heap
+	 */
+	@SuppressWarnings("unchecked")
+	public void clear(){ 
+		this.size = 0; 
+		this.heap = (T[]) new Object[this.size+1];
+	}
+	
+	/**
+	 * Delete an arbitrary node and adjust to maintain heap
+	 */
+	public void delete(){/*TODO*/}
+	
+	/**
+	 * Takes a child element and returns the location of the parent element.
+	 * @param index of child element
+	 * @return index of parent element (0 = child is head of list)
+	 * @throws IndexOutOfBoundsException
+	 */
+	protected int getParent(int index) throws IndexOutOfBoundsException{
+		if(index < 0 || index > this.size){throw new IndexOutOfBoundsException();}
+		if(index == 0) { return 0; }
+		return index / 2 ;
+	}
+	
+	/**
+	 * Takes a parent element and returns the location of the left child element
+	 * @param index of parent element
+	 * @return index of left child element
+	 * @throws IndexOutOfBoundsException
+	 */
+	protected int getLeft(int index) throws IndexOutOfBoundsException{
+		if(index < 0 || 2 * index > this.size){ throw new IndexOutOfBoundsException();}
+		return 2 * index;
+	}
+	
+	/**
+	 * Takes a parent element and returns the location of the right child element
+	 * @param index of parent element
+	 * @return index of right child element
+	 * @throws IndexOutOfBoundsException
+	 */
+	protected int getRight(int index) throws IndexOutOfBoundsException{
+		if(index < 0 || 2*index + 1 > this.size){ throw new IndexOutOfBoundsException();}
+		return 2 * index + 1;
+	}
+	
+	/**
+	 * Move a node up in the tree, as long as needed
+	 * Used to restore heap condition after insertion
+	 */
+	protected void shiftUp(){
+		/*TODO*/
+	}
+	
+	/**
+	 * Move a node down in the tree, similar to shift-up
+	 * Used to restore heap condition after deletion or replacement.
+	 */
+	protected void shiftDown(){
+		/*TODO*/
+		}
+	
+	/**
+	 * Updating a key within the heap
+	 */
+	protected abstract void updateKey();
+	
+	/**
+	 * Maintains heap properties of the heap list
+	 */
+	protected abstract void heapify();
+	
+	/**
+	 * Adds an element into the heap
+	 * @param data element to be added to the heap
+	 */
+	public abstract void insert(T data);
+		
+}

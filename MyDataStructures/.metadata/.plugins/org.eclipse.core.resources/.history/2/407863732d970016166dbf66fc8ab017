@@ -1,0 +1,74 @@
+/*
+ * @author: Spencer MacMaster
+ * @description: Implements a FIFO Queue Data Structure.
+ */
+
+import java.util.NoSuchElementException;
+
+public class MyQueue<T> {
+	private DataNode<T> head, tail;
+	private int size;
+	
+	public MyQueue() {this.head = null; this.tail = null; this.size = 0;}
+
+
+	/*
+	 * Pushes an element onto the queue 
+	 */
+	public void push(T data){
+		DataNode<T> d = new DataNode<T>(data);
+		if(this.head == null){
+			this.head = d;
+		}
+		this.tail.next = d;
+		this.size++;
+	}
+	
+	/*
+	 * Removes the first element off the queue and returns its data value
+	 * If the queue is empty throws an exception
+	 */
+	public T pop() throws NoSuchElementException {
+		if (this.head != null){
+			T data = this.tail.data;
+			this.head = this.head.next;
+			this.size--;
+			return data;
+		}else{
+			throw new NoSuchElementException();
+		}
+	}
+	
+	/* 
+	 * Checks but doesn't remove the first element off the queue and returns its data value
+	 * If the queue is empty throws an exception.
+	 */
+	public T peek() throws NoSuchElementException {
+		if (this.head != null){
+			return this.head.data;
+		}else{
+			throw new NoSuchElementException();
+		}
+	}
+
+	/*
+	 * Checks if the queue is empty and returns true or false;
+	 */
+	public boolean isEmpty(){
+		return this.head == null;
+	}
+	
+	/*
+	 * Removes all the data nodes from the queue;
+	 */
+	public void clear(){
+		while(this.head != null){ this.head = this.head.next;}
+		this.tail = null;
+	}
+	
+	/*
+	 * Returns the size of the queue
+	 */
+	public int getSize(){ return this.size; }
+	
+}

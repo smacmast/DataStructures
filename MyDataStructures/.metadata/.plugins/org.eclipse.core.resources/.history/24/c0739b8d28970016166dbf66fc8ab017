@@ -1,0 +1,45 @@
+import java.util.NoSuchElementException;
+
+
+public class MyStack<T>{
+
+	DataNode head;
+	int size;
+	
+	public MyStack() {
+		head = null;
+	}
+	
+	public void push(T data){
+		DataNode n = new DataNode(data);
+		n.next = this.head;
+		this.head = n;
+		this.size++;
+	}
+	
+	public T pop() throws NoSuchElementException {
+		if (this.head != null){
+			T data = this.head.data;
+			this.head = this.head.next;
+			this.size--;
+			return data;
+		}else{
+			throw new NoSuchElementException();
+		}
+	}
+	
+	public T peek() throws NoSuchElementException {
+		if (this.head != null){
+			return this.head.data;
+		}else{
+			throw new NoSuchElementException();
+		}
+	}
+	
+	public boolean isEmpty(){
+		return this.head == null;
+	}
+	
+	public int getSize(){
+		return this.size;
+	}

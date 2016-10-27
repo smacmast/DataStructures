@@ -1,0 +1,11 @@
+import java.util.NoSuchElementException;
+
+public class MyQueue<T> {
+	private DataNode<T> head, tail;
+	private int size;
+	
+	public MyQueue() {this.head = null; this.tail = null; this.size = 0;}
+	
+	
+
+}

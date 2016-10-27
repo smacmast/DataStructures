@@ -1,0 +1,42 @@
+import java.util.NoSuchElementException;
+
+/**
+ * @author Spencer MacMaster
+ * @description Implements a Max-Heap Data Structure.
+ */
+public class MyMaxHeap<T> extends MyHeap<T>{
+	
+	/**
+	 * Constructor of MyMaxHeap Class
+	 */
+	public MyMaxHeap() { super(); }
+		
+	/**
+	 *  Removes and returns the maximum element in the heap
+	 *  @return the maximum element in the heap
+	 *  @throws NoSuchElementException
+	 */
+	public T extractMax() throws NoSuchElementException {
+		return null;
+	}
+	
+	/**
+	 * Deletes the maximum element in the heap
+	 * @throws NoSuchElementException
+	 */
+	public void deleteMax() throws NoSuchElementException {
+		/*TODO*/
+	}
+	
+	/**
+	 *  Views and returns the maximum element in the heap
+	 *  @return the maximum element in the heap
+	 *  @throws NoSuchElementException
+	 */
+	public T viewMax() throws NoSuchElementException {
+		return null;
+	}
+
+	
+	
+}

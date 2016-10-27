@@ -1,0 +1,49 @@
+/*
+ * @author: Spencer MacMaster
+ * @description: implements a FILO Stack Data Structure.
+ */
+
+import java.util.NoSuchElementException;
+
+public class MyStack<T>{
+
+	private DataNode<T> head;
+	private int size;
+	
+	//Constructor of MyStack Class
+	public MyStack() { this.head = null; this.size = 0;}
+	
+	//Pushes an element onto the stack 
+	public void push(T data){
+		DataNode<T> n = new DataNode<T>(data);
+		n.next = this.head;
+		this.head = n;
+		this.size++;
+	}
+	
+	//Removes the first element off the stack and returns its data value
+	public T pop() throws NoSuchElementException {
+		if (this.head != null){
+			T data = this.head.data;
+			this.head = this.head.next;
+			this.size--;
+			return data;
+		}else{
+			throw new NoSuchElementException();
+		}
+	}
+	
+	public T peek() throws NoSuchElementException {
+		if (this.head != null){
+			return this.head.data;
+		}else{
+			throw new NoSuchElementException();
+		}
+	}
+	
+	public boolean isEmpty(){
+		return this.head == null;
+	}
+	
+	public int getSize(){ return this.size; }
+}

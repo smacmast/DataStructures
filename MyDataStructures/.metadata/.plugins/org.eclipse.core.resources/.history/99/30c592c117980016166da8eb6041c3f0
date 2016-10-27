@@ -1,0 +1,10 @@
+
+public class HeapNode<T> {
+	T data;
+	HeapNode<T> left, right;
+	
+	HeapNode<T>(){
+		this.data = null;
+		this.left = null; this.right = null;
+	}
+}

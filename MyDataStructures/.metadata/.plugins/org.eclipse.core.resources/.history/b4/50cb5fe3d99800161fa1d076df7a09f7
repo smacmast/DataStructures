@@ -1,0 +1,17 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class TestMyMinHeap {
+
+	@Test
+	public void testMinHeapInsert() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>();
+		m.insert(5);
+		assertEquals(m.viewMin());
+		m.insert(7);
+		
+	}
+
+}

@@ -1,0 +1,30 @@
+import static org.junit.Assert.*;
+import java.util.NoSuchElementException;
+import org.junit.Test;
+
+
+public class TestMyMinHeap {
+
+	@Test
+	public void testMinHeapInsert() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>();
+		m.insert(5);
+		assertEquals((Integer) 5, m.viewMin());
+		m.insert(7);
+		assertEquals((Integer) 5, m.viewMin());
+		m.insert(2);
+		assertEquals((Integer) 2, m.viewMin());
+	}
+
+	@Test
+	public void testExtractMin() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>();
+		m.insert(5);
+		assertEquals((Integer) 5, m.viewMin());
+		m.insert(7);
+		assertEquals((Integer) 5, m.viewMin());
+		m.insert(2);
+		assertEquals((Integer) 2, m.viewMin());
+	}
+	
+}

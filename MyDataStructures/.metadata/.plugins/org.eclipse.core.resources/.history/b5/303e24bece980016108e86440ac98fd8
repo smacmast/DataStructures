@@ -1,0 +1,95 @@
+import java.util.NoSuchElementException;
+
+/**
+ * @author Spencer MacMaster
+ * @description Implements a Max-Heap Data Structure.
+ */
+public class MyMaxHeap<T extends Comparable<T>> extends MyHeap<T>{
+	
+	/**
+	 * Constructor of MyMaxHeap Class
+	 */
+	public MyMaxHeap() { super(); }
+
+	/**
+	 *  Removes and returns the maximum element in the heap.
+	 *  MaxHeap wrapper for extractTop method.
+	 *  @return the maximum element in the heap
+	 *  @throws NoSuchElementException
+	 *  @see {@link #extractTop()}
+	 */
+	public T extractMax() throws NoSuchElementException {
+		return this.extractTop();
+	}
+	
+	/**
+	 * Deletes the maximum element in the heap.
+	 * MaxHeap wrapper for deleteTop.
+	 * @throws NoSuchElementException
+	 * @see {@link #deleteTop()}
+	 */
+	public void deleteMax() throws NoSuchElementException {
+		this.deleteTop();
+	}
+	
+	/**
+	 *  Views and returns the maximum element in the heap.
+	 *  MaxHeap wrapper for viewTop method.
+	 *  @return the maximum element in the heap
+	 *  @throws NoSuchElementException
+	 *  @see {@link #viewTop()}
+	 */
+	public T viewMax() throws NoSuchElementException {
+		return this.viewTop();
+	}
+	
+	@Override
+	public void insert(T data) {
+		if (this.size > this.heap.length){ this.enlargeHeap(); }//check heap size		
+		this.heap[this.size] = data; //put new element at top of heap
+		int index = this.size;
+		this.shiftUp(index); this.size++;
+	}
+	
+	@Override
+	protected void updateKey(int index, T data) throws IndexOutOfBoundsException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(int index) throws IndexOutOfBoundsException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void shiftUp(int index) throws IndexOutOfBoundsException{
+		int piIndex = this.getParent(index);
+
+		while(this.getParent(index)!= -1 && this.heap[piIndex].compareTo(this.heap[index]) < 0){
+			swap(piIndex, index);
+			index = piIndex;
+			piIndex = this.getParent(index); 
+		}
+		
+	}
+
+	@Override
+	protected void shiftDown(int index) throws IndexOutOfBoundsException{
+		int childIndex = this.getLeft(index);
+
+		while(this.getRight(index) < this.size){
+			if (this.heap[this.getLeft(index)].compareTo(this.heap[this.getRight(index)]) < -1){ //left < right
+				childIndex = this.getRight(index);
+			}
+			
+			if(this.heap[childIndex].compareTo(this.heap[index]) >= 0){
+				swap(index, childIndex);
+				index = childIndex;
+				childIndex = this.getLeft(index); 
+			}
+		}
+	}
+	
+}

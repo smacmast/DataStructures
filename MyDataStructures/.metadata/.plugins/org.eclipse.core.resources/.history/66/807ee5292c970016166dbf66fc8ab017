@@ -1,0 +1,10 @@
+import java.util.NoSuchElementException;
+
+public class MyQueue<T> {
+	private DataNode<T> head, tail;
+	private int size;
+	public MyQueue() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

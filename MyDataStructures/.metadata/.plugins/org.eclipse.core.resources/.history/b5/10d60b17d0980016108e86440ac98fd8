@@ -1,0 +1,81 @@
+import java.util.NoSuchElementException;
+
+/**
+ * @author Spencer MacMaster
+ * @description Implements a Min-Heap Data Structure.
+ */
+public class MyMinHeap<T extends Comparable<T>> extends MyHeap<T>{
+	
+	/**
+	 * Constructor of MyMinHeap Class
+	 */
+	public MyMinHeap() { super(); }
+		
+	/**
+	 *  Removes and returns the minimum element in the heap.
+	 *  MinHeap wrapper for extractTop method.
+	 *  @return the minimum element in the heap
+	 *  @throws NoSuchElementException
+	 *  @see {@link #extractTop()}
+	 */
+	public T extractMin() throws NoSuchElementException {
+		return this.extractTop();
+	}
+	
+	/**
+	 * Deletes the minimum element in the heap.
+	 * MinHeap wrapper for deleteTop.
+	 * @throws NoSuchElementException
+	 * @see {@link #deleteTop()}
+	 */
+	public void deleteMin() throws NoSuchElementException {
+		this.deleteTop();
+	}
+	
+	/**
+	 *  Views and returns the minimum element in the heap.
+	 *  MinHeap wrapper for viewTop method.
+	 *  @return the minimum element in the heap
+	 *  @throws NoSuchElementException
+	 *  @see {@link #viewTop()}
+	 */
+	public T viewMin() throws NoSuchElementException {
+		return this.viewTop();
+	}
+
+	@Override
+	protected void shiftUp(int index) throws IndexOutOfBoundsException{
+		int piIndex = this.getParent(index);
+
+		while(this.getParent(index)!= -1 && this.heap[piIndex].compareTo(this.heap[index]) > 0){
+			swap(piIndex, index);
+			index = piIndex;
+			piIndex = this.getParent(index); 
+		}
+		
+	}
+
+	@Override
+	protected void shiftDown(int index) throws IndexOutOfBoundsException{
+		int childIndex, childIndexLeft,childIndexRight;
+		
+		childIndexLeft = this.getLeft(index); childIndexRight = this.getRight(index);
+		if (this.heap[0].compareTo(this.heap[0]) < 0){ childIndex = childIndexRight; }//left < right
+		else{ childIndex = childIndexLeft; }
+		
+		while(this.getRight(index) < this.size && this.heap[childIndex].compareTo(this.heap[index]) <= 0){
+			swap(index, childIndex);
+			index = childIndex;
+			childIndexLeft = this.getLeft(index); childIndexRight = this.getRight(index);
+			if (this.heap[0].compareTo(this.heap[0]) < 0){ childIndex = childIndexRight; }//left < right
+			else{ childIndex = childIndexLeft; }
+		}
+	}
+
+	@Override
+	protected void updateKey(int index, T data) throws IndexOutOfBoundsException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

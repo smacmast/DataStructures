@@ -1,0 +1,73 @@
+import java.util.NoSuchElementException;
+
+/**
+ * @author Spencer MacMaster
+ * @description: Implements a FILO Stack Data Structure.
+ */
+public class MyStack<T>{
+
+	private DataNode<T> head;
+	private int size;
+	
+	/**
+	 * Constructor of MyStack Class
+	 */
+	public MyStack() { this.head = null; this.size = 0;}
+	
+	/**
+	 * Pushes an element onto the stack 
+	 */
+	public void push(T data){
+		DataNode<T> n = new DataNode<T>(data);
+		n.next = this.head;
+		this.head = n;
+		this.size++;
+	}
+	
+	/**
+	 * Removes the first element off the stack and returns its data value
+	 * If the stack is empty throws an exception
+	 */
+	public T pop() throws NoSuchElementException {
+		if (this.head != null){
+			T data = this.head.data;
+			this.head = this.head.next;
+			this.size--;
+			return data;
+		}else{
+			throw new NoSuchElementException();
+		}
+	}
+	
+	/** 
+	 * Checks but doesn't remove the first element off the stack and returns its data value
+	 * If the stack is empty throws an exception.
+	 */
+	public T peek() throws NoSuchElementException {
+		if (this.head != null){
+			return this.head.data;
+		}else{
+			throw new NoSuchElementException();
+		}
+	}
+
+	/**
+	 * Checks if the stack is empty and returns true or false;
+	 */
+	public boolean isEmpty(){
+		return this.head == null;
+	}
+	
+	/**
+	 * Removes all the data nodes from the stack;
+	 */
+	public void clear(){
+		while(this.head != null){ this.head = this.head.next;} this.size = 0;
+	}
+	
+	/**
+	 * @return the size of the stack
+	 */
+	public int getSize(){ return this.size; }
+	
+}

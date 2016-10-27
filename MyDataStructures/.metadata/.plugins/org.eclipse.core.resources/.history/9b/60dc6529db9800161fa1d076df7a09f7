@@ -1,0 +1,45 @@
+import static org.junit.Assert.*;
+
+import java.util.Comparator;
+import java.util.NoSuchElementException;
+
+import org.junit.Test;
+
+
+public class TestMyMinHeap {
+
+	@Test
+	public void testInsert() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>();
+		m.insert(5);
+		assertEquals((Integer) 5, m.viewMin());
+		m.insert(7);
+		assertEquals((Integer) 5, m.viewMin());
+		m.insert(2);
+		assertEquals((Integer) 2, m.viewMin());
+	}
+
+	public class IntegerComparator implements Comparator<Integer> {
+
+		    public int compare(Integer a, Integer b) {
+		        return a.intValue() - b.intValue();
+		    }
+
+		    public boolean equals(Object obj) {
+		        return this.equals(obj);
+		    }
+	}
+	
+	@Test
+	public void testExtractMin() {
+		MyMinHeap<Integer> m = new MyMinHeap<Integer>();
+		m.insert(5);
+		assertEquals((Integer) 5, m.extractMin());
+		m.insert(7);
+		m.insert(2);
+		assertEquals((Integer) 2, m.viewMin());
+		assertEquals((Integer) 7, m.viewMin());
+		assertTrue(m.isEmpty());
+	}
+	
+}

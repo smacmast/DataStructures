@@ -1,0 +1,10 @@
+
+public class MyNode<T> {
+	T data;
+	MyNode<T> next;
+	
+	public MyNode() {
+		this.next = null;
+	}
+
+}

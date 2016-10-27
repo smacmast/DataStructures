@@ -1,0 +1,64 @@
+import java.util.NoSuchElementException;
+
+/**
+ * @author Spencer MacMaster
+ * @description Implements a Min-Heap Data Structure.
+ */
+public class MyMinHeap<T> extends MyHeap<T>{
+	
+	/**
+	 * Constructor of MyMinHeap Class
+	 */
+	public MyMinHeap() { super(); }
+		
+	/**
+	 *  Removes and returns the minimum element in the heap.
+	 *  MinHeap wrapper for extractTop method.
+	 *  @return the minimum element in the heap
+	 *  @throws NoSuchElementException
+	 *  @see {@link #extractTop()}
+	 */
+	public T extractMin() throws NoSuchElementException {
+		return null;
+	}
+	
+	/**
+	 * Deletes the minimum element in the heap.
+	 * MinHeap wrapper for deleteTop.
+	 * @throws NoSuchElementException
+	 * @see {@link #deleteTop()}
+	 */
+	public void deleteMin() throws NoSuchElementException {
+		this.deleteTop();
+	}
+	
+	/**
+	 *  Views and returns the minimum element in the heap.
+	 *  MinHeap wrapper for viewTop method.
+	 *  @return the minimum element in the heap
+	 *  @throws NoSuchElementException
+	 *  @see {@link #viewTop()}
+	 */
+	public T viewMin() throws NoSuchElementException {
+		return this.viewTop();
+	}
+		
+	@Override
+	protected void heapify() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void insert(T data) {
+		// TODO Auto-generated method stub
+		
+	}	
+
+	@Override
+	protected void updateKey() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

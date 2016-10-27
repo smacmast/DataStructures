@@ -1,0 +1,88 @@
+import java.util.Comparator;
+import java.util.NoSuchElementException;
+
+/**
+ * @author Spencer MacMaster
+ * @description Implements a Max-Heap Data Structure.
+ */
+public class MyMaxHeap<T> extends MyHeap<T>{
+	
+	/**
+	 * Constructor of MyMaxHeap Class
+	 * @param c Comparator for elements
+	 */
+	public MyMaxHeap(Comparator<T> c) { super(c); }
+
+	/**
+	 *  Removes and returns the maximum element in the heap.
+	 *  MaxHeap wrapper for extractTop method.
+	 *  @return the maximum element in the heap
+	 *  @throws NoSuchElementException
+	 *  @see {@link #extractTop()}
+	 */
+	public T extractMax() throws NoSuchElementException {
+		return this.extractTop();
+	}
+	
+	/**
+	 * Deletes the maximum element in the heap.
+	 * MaxHeap wrapper for deleteTop.
+	 * @throws NoSuchElementException
+	 * @see {@link #deleteTop()}
+	 */
+	public void deleteMax() throws NoSuchElementException {
+		this.deleteTop();
+	}
+	
+	/**
+	 *  Views and returns the maximum element in the heap.
+	 *  MaxHeap wrapper for viewTop method.
+	 *  @return the maximum element in the heap
+	 *  @throws NoSuchElementException
+	 *  @see {@link #viewTop()}
+	 */
+	public T viewMax() throws NoSuchElementException {
+		return this.viewTop();
+	}
+	
+	@Override
+	public void updateKey(int index, T data) throws IndexOutOfBoundsException{
+		if(index < 0 || index > this.size){ throw new IndexOutOfBoundsException();}
+		
+		if(this.comparer.compare(this.heap[this.getParent(index)], this.heap[index]) < 0){ //parent less than child
+			this.shiftUp(index);	
+		}else{
+			this.shiftDown(index);
+		}
+	}
+
+	@Override
+	protected void shiftUp(int index) throws IndexOutOfBoundsException{
+		int piIndex = this.getParent(index);
+
+		while(this.getParent(index)!= -1 && this.comparer.compare(this.heap[piIndex], this.heap[index]) < 0){
+			swap(piIndex, index);
+			index = piIndex;
+			piIndex = this.getParent(index); 
+		}
+		
+	}
+
+	@Override
+	protected void shiftDown(int index) throws IndexOutOfBoundsException{
+		int childIndex, childIndexLeft,childIndexRight;
+		
+		childIndexLeft = this.getLeft(index); childIndexRight = this.getRight(index);
+		if (this.comparer.compare(this.heap[childIndexLeft], this.heap[childIndexRight]) < 0){ childIndex = childIndexRight; }//left < right
+		else{ childIndex = childIndexLeft; }
+		
+		while(this.getRight(index) < this.size && this.comparer.compare(this.heap[childIndex], this.heap[index]) >= 0){
+			swap(index, childIndex);
+			index = childIndex;
+			childIndexLeft = this.getLeft(index); childIndexRight = this.getRight(index);
+			if (this.comparer.compare(this.heap[childIndexLeft], this.heap[childIndexRight]) < 0){ childIndex = childIndexRight; }//left < right
+			else{ childIndex = childIndexLeft; }
+		}
+	}
+	
+}

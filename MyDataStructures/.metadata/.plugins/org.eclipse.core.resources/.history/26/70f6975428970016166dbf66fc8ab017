@@ -1,0 +1,11 @@
+
+public class DataNode<T> {
+	T data;
+	DataNode<T> next;
+	
+	public DataNode(T data) {
+		this.data = data;
+		this.next = null;
+	}
+
+}

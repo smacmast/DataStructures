@@ -1,0 +1,8 @@
+
+public class MyNode<T> {
+
+	public MyNode() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
